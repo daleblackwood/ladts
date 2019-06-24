@@ -1,6 +1,6 @@
 # ladts + shapeships
 A canvas/HTML Game Engine and build tools in Typescript. 
-A hosted version of the game can be found at www.dalejwilliams.com/shapeships
+A hosted version of the game can be found at http://www.dalejwilliams.com/projects/shapeships
 
 ## ladts
 LadTS is a canvas-powered game engine written in Typescript. It's an updated version of
