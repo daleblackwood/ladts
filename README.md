@@ -13,6 +13,7 @@ Typescript
 # Running it
 1. Clone the repo
 2. Type `node builder start shapeships` in the project directory
+3. Point your browser to http://localhost:7777/ to play.
 
 # Dependencies
 This project doesn't require anything from NPM. A local copy of requireJS-almond has
