@@ -4,8 +4,8 @@ import { JSONLoader } from "./JsonLoader";
 import { ImageLoader } from "./ImageLoader";
 
 /*
-	LAD.TextLoader extends LAD.AbstractLoader to implement methods for
-	loading text files.
+    LAD.TextLoader extends LAD.AbstractLoader to implement methods for
+    loading text files.
 */
 export class TilesetLoader extends ALoader<Tileset> {
 

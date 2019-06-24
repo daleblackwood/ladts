@@ -1,28 +1,28 @@
 import { AInput } from "./AInput";
 
 /*
-	LAD.KeyboardInput extends LAD.AbstractInput to handle the pressing
-	of keyboard keys.
+    LAD.KeyboardInput extends LAD.AbstractInput to handle the pressing
+    of keyboard keys.
 */
 export class KeyboardInput extends AInput {
 
-	constructor() {
+    constructor() {
         super("keyboard");
-		const handler = this.handleInput.bind(this);
-		window.addEventListener("keydown", handler);
-		window.addEventListener("keyup", handler);
+        const handler = this.handleInput.bind(this);
+        window.addEventListener("keydown", handler);
+        window.addEventListener("keyup", handler);
     }
     
-	handleInput(e: KeyboardEvent) {
+    handleInput(e: KeyboardEvent) {
         const keyName = (e.keyCode || "") + "";
-		switch (e.type) {
-			case "keydown":
-				this.press(keyName);
-				break;
-			case "keyup":
-				this.release(keyName);
-				break;
-		}
+        switch (e.type) {
+            case "keydown":
+                this.press(keyName);
+                break;
+            case "keyup":
+                this.release(keyName);
+                break;
+        }
     }
     
 }

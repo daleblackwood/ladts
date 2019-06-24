@@ -1,5 +1,5 @@
 /*
-	LAD.Math is an object used to enclose useful mathematical methods.
+    LAD.Math is an object used to enclose useful mathematical methods.
 */
 export namespace MathUtils {
 

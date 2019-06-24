@@ -69,10 +69,10 @@ export class Renderer {
 
         this.font = options = { ...this.font, ...options };
         c.fillStyle = options.fill
-		c.strokeStyle = options.stroke;
-		c.font = options.size + "px " + options.face;
-		c.textBaseline = options.baseline;
-		c.textAlign = options.align;
+        c.strokeStyle = options.stroke;
+        c.font = options.size + "px " + options.face;
+        c.textBaseline = options.baseline;
+        c.textAlign = options.align;
     }
 
     writeText(text: string, x: number, y: number, maxWidth?: number) {

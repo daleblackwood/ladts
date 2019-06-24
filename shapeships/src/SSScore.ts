@@ -1,6 +1,6 @@
 /*
-	SSScore keeps track of the player's current score, lives and 
-	multiplier.
+    SSScore keeps track of the player's current score, lives and 
+    multiplier.
 */
 export class SSScore {
 
@@ -8,17 +8,17 @@ export class SSScore {
     multi = 1;
     lives = 3;
 
-	constructor() {
-		this.reset();
+    constructor() {
+        this.reset();
     }
     
-	reset() {
-		this.score = 0;
-		this.multi = 1;
-		this.lives = 3;
+    reset() {
+        this.score = 0;
+        this.multi = 1;
+        this.lives = 3;
     }
     
-	increaseMulti() {
-		this.multi++;
-	}
+    increaseMulti() {
+        this.multi++;
+    }
 }
