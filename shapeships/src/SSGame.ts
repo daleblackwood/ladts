@@ -2,14 +2,14 @@ import { SSInput } from "./SSInput";
 import { SSWave } from "./SSWave";
 import { SSScore } from "./SSScore";
 import { SSHUD } from "./SSHUD";
-import { Game } from "lad/scene/Game";
+import { Game } from "lad/Game";
 import { SSScreenTitle } from "./SSScreenTitle";
 import { SSScreenEnd } from "SSScreenEnd";
 import { SSScene } from "SSScene";
 
 /*
-    SSGame extends Game to include key bindings, mouse binding,
-    input and some game specific properties.
+	SSGame extends Game to include key bindings, mouse binding,
+	input and some game specific properties.
 */
 export const SSScreens  = {
     title: new SSScreenTitle(),
@@ -39,11 +39,12 @@ export class SSGame extends Game {
     wave = new SSWave();
     score = new SSScore();
 
-    constructor(canvasName: string) {
-        super(canvasName, {
-            fpsUpdate: 30,
-            fpsRender: 120
-        });
+	constructor(canvasName: string) {
+		super(canvasName, {
+			fpsUpdate: 30,
+            fpsRender: 120,
+            autoSize: true
+		});
         this.setScene(SSScreens.title);
         this.hud = new SSHUD(this);
     }

@@ -1,0 +1,27 @@
+{
+  "name": "ladbuild",
+  "version": "1.0.0",
+  "description": "LAD engine game build tool",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "LAD",
+    "HTML5",
+    "game",
+    "engine",
+    "canvas",
+    "builder"
+  ],
+  "author": "Dale Williams",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@types/argparse": "^1.0.36",
+    "@types/watch": "^1.0.1",
+    "fs-extra": "^8.1.0",
+    "typescript": "^3.5.3",
+    "watch": "^1.0.2"
+  }
+}

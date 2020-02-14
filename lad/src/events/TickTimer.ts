@@ -70,7 +70,6 @@ export class TickTimer {
         if (this.isTicking === false) {
             return;
         }
-        requestAnimationFrame(this.tick);
         for (const tickAction of this.tickActions) {
             const now = this.getNow();
             const dt = now - tickAction.lastTick;
@@ -80,6 +79,7 @@ export class TickTimer {
                 tickAction.boundMethod(dt);
             }
         }
+        requestAnimationFrame(this.tick);
     }
 
     getNow() {

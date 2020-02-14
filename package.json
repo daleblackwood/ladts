@@ -1,0 +1,28 @@
+{
+  "name": "ladts",
+  "version": "1.0.0",
+  "description": "LadTS game engine",
+  "main": ".",
+  "scripts": {
+    "start": "node ./ladbuild start",
+    "build": "node ./ladbuild build",
+    "docker": "docker-compose -f ./server/docker-compose.yaml up",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/dalejwilliams/ladts.git"
+  },
+  "keywords": [
+    "LAD",
+    "game",
+    "engine",
+    "html",
+    "canvas",
+    "html5"
+  ],
+  "author": "Dale Williams",
+  "license": "UNLICENSED",
+  "homepage": "https://bitbucket.org/dalejwilliams/ladts#readme",
+  "dependencies": {}
+}

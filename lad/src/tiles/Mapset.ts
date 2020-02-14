@@ -1,7 +1,5 @@
-import { Tileset } from "./Tileset";
-
 function validateSize(x: number, y: number) {
-    if (isNaN(x) || isNaN(y) || x < 1 || y < 1) {
+    if (isNaN(x) || isNaN(y) || x < 0 || y < 0) {
         throw new Error("Invalid map dimensions (" + x + "*" + y + ")");
     }
     if (Math.floor(x) !== x || Math.floor(y) !== y) {
@@ -36,7 +34,7 @@ export class Mapset {
         return x + y * this.tilesX;
     }
 
-    setSize(tilesX: number, tilesY: number) {
+    setSize(tilesX: number, tilesY: number, offsetX: number = 0, offsetY: number = 0) {
         validateSize(tilesX, tilesY);
 
         // clone old to copy over
@@ -57,16 +55,19 @@ export class Mapset {
 
         // copy over old
         if (prevMapSet) {
-            this.copyOver(prevMapSet);
+            this.copyOver(prevMapSet, offsetX, offsetY);
         }
     }
 
-    copyOver(mapset: Mapset) {
-        const limX = Math.min(this.tilesX, mapset.tilesX);
-        const limY = Math.min(this.tilesY, mapset.tilesY);
-        for (let y = 0; y < limY; y++) {
-            for (let x = 0; x < limX; x++) {
-                const tile = mapset.getTile(x, y);
+    copyOver(mapset: Mapset, offsetX: number = 0, offsetY: number = 0) {
+        for (let y = 0; y < this.tilesY; y++) {
+            for (let x = 0; x < this.tilesX; x++) {
+                let tile = Mapset.EMPTY;
+                const tsx = x - offsetX;
+                const tsy = y - offsetY;
+                if (mapset.isWithin(tsx, tsy)) {
+                    tile = mapset.getTile(tsx, tsy);
+                }
                 this.setTile(x, y, tile);
             }
         }
@@ -82,9 +83,29 @@ export class Mapset {
         this.tiles = tiles;
     }
 
+    isWithin(x: number, y: number) {
+        return x >= 0 && y >= 0 && x < this.tilesX && y < this.tilesY;
+    }
+
     clone() {
         const result = new Mapset();
         result.setTiles(this.tilesX, this.tilesY, this.tiles);
         return result;
+    }
+
+    getDataString(): string {
+        let line = this.tilesX + ":";
+        line += btoa(String.fromCharCode.apply(null, this.tiles));
+        return line;
+    }
+
+    setDataString(line: string) {
+        const colonI = line.indexOf(":");
+        const tilesX = parseInt(line.substr(0, colonI));
+        const rest = atob(line.substr(colonI + 1));
+        const uint8 = Uint8Array.from([...rest].map(ch => ch.charCodeAt(0)));
+        const tilesY = Math.ceil(uint8.length / tilesX);
+        this.setSize(tilesX, tilesY);
+        this.tiles = uint8;
     }
 }

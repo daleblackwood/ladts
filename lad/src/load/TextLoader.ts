@@ -1,8 +1,8 @@
 import { ALoader } from "./ALoader";
 
 /*
-    LAD.TextLoader extends LAD.AbstractLoader to implement methods for
-    loading text files.
+	LAD.TextLoader extends LAD.AbstractLoader to implement methods for
+	loading text files.
 */
 export class TextLoader<T = string> extends ALoader<T> {
 

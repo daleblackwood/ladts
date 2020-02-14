@@ -1,6 +1,6 @@
 const spawn = require("child_process").spawn;
 const process = require("process");
-const fs = require("fs");
+const fs = require("fs-extra");
 const path = require("path");
 
 const modes = { install, start, build };

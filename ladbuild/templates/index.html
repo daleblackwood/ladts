@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>{PROJECT}</title>
+	<script type="text/javascript" src="libs.js?{BUILD}"></script>
+	<script type="text/javascript" src="{OUTFILE}?{BUILD}"></script>
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+		
+		@font-face {
+			font-family: 'Pixel';
+			src: url('VCROSDMono.woff') format('woff');
+			font-weight: normal;
+			font-style: normal;
+		}				
+
+		body {
+			background-color: #222;
+			color: #468;
+			font-family: 'Pixel', Arial, Helvetica, sans-serif;
+			font-size: 13px;
+		}
+
+		button, input {
+			font-family: inherit;
+			font-size: inherit;
+			padding: 0.5em;
+		}
+		
+		h1, h2, h3, h4, h5, h6 {
+			margin: 0 0 1ex;
+		}
+		
+		h4 {
+			font-weight: normal;
+			margin-top: -10px;
+		}
+		
+		#container {
+			width: 900px;
+			padding: 5px 0;
+			margin: 0 auto;
+		}
+
+		#Game {
+			background: black;
+			margin: 0 auto;
+			width: 100%;
+			height: 528px;
+		}
+		
+		#gameCanvas {
+			background-color: #F8F8F8;
+			border: 5px solid #CCC;
+		}
+		
+		#instructions {
+			padding: 5px 10px;
+		}
+		
+		.controls {
+			width: 100%;
+		}
+		
+		br.clr {
+			clear:both;
+		}
+	</style>
+</head>
+
+<body>
+	<div>
+		<div id="Game"></div>
+		<script>require(["{PROJECT}/src/main"])</script>
+		<br/>
+		<button onclick="LAD.fullscreen(true)">Full Screen</button>
+	</div>
+</body>
+</html>

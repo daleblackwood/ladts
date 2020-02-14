@@ -1,5 +1,5 @@
-import { Scene } from "lad/scene/Scene";
-import { Rect } from "lad/math/Rect";
+import { Scene } from "../scene/Scene";
+import { Rect } from "../math/Rect";
 
 export class UIScreen extends Scene {
 

@@ -1,106 +1,86 @@
+import { Point, IPoint } from "./Point";
+
 /*
-    LAD.Rectangle is used for bounds and rectangle operations.
+	LAD.Rectangle is used for bounds and rectangle operations.
 */
 export class Rect {
 
-    public x = 0;
-    public y = 0;
-    public width = 0;
-    public height = 0;
+	public topLeft: Point = new Point();
+	public bottomRight: Point = new Point();
+	public get width() { return this.bottomRight.x - this.topLeft.x }
+	public get height() { return this.bottomRight.y - this.topLeft.y }
+	public get top() { return this.topLeft.y }
+	public get left() { return this.topLeft.x }
+	public get bottom() { return this.bottomRight.y }
+	public get right() { return this.bottomRight.x }
+	public get center() { return this.topLeft.clone().add(this.bottomRight).divide(2) }
 
-    constructor(x?: number, y?: number, width?: number, height?:number) {
-        this.setSize(x, y, width, height);
-    }
+	constructor(x: number = 0, y: number = 0, width: number = 0, height:number = 0) {
+		this.setSize(x, y, width, height);
+	}
 
-    setSize(x: number = 0, y: number = 0, width: number = 0, height: number = 0) {
-        this.x = x || 0;
-        this.y = y || 0;
-        this.width = width || 0;
-        this.height = height || 0;
-        return this;
-    }
+	setSize(x: number = 0, y: number = 0, width: number = 0, height:number = 0) {
+		this.topLeft.setValue(x, y);
+		this.bottomRight.setValue(x + width, y + height);
+	}
 
-    inset(padding: number) {
-        this.x += padding;
-        this.width -= padding * 2;
-        this.y += padding;
-        this.height += padding * 2;
-        return this;
-    }
+	insetAll(padding: number) {
+		this.topLeft.move(padding, padding);
+		this.bottomRight.move(-padding, -padding);
+		return this;
+	}
 
-    move(x: number, y: number) {
-        this.x += x;
-        this.y += y;
-        return this;
-    }
+	insetEach(top: number, left: number, bottom: number, right: number) {
+		this.topLeft.move(left, top);
+		this.bottomRight.move(-right, -bottom);
+		return this;
+	}
+
+	move(x: number, y: number) {
+		this.topLeft.move(x, y);
+		this.bottomRight.move(x, y);
+		return this;
+	}
+
+	addPos(p: IPoint) {
+		this.topLeft.add(p);
+		this.bottomRight.add(p);
+		return this;
+	}
     
-    getLeft() {
-        return this.x;
-    }
-    setLeft(value: number) {
-        this.x = value;
-    }
+	isWithin(p: { x: number, y: number }) {
+		// returns true if the given point is within this rectangle
+		return p.x >= this.topLeft.x 
+			&& p.y >= this.topLeft.y
+			&& p.x <= this.bottomRight.x
+			&& p.y <= this.bottomRight.y
+	}
 
-    getRight() {
-        return this.x + this.width;
-    }
-    setRight(value: number) {
-        this.width = value - this.x;
-    }
+	overlaps(r: Rect): boolean {
+		if (this.topLeft.x > r.bottomRight.x || this.bottomRight.x < r.topLeft.x) 
+        	return false; 
+  
+		if (this.topLeft.y > r.bottomRight.y || this.bottomRight.y < r.topLeft.y) 
+			return false; 
+	
+		return true; 
+	}
 
-    getTop() {
-        return this.y;
-    }
-    setTop(value: number) {
-        this.y = value
-    }
+	copy(r: Rect): Rect {
+		this.topLeft.copy(r.topLeft);
+		this.bottomRight.copy(r.bottomRight);
+		return this;
+	}
 
-    getBottom() {
-        return this.y + this.height;
-    }
-    setBottom(value: number) {
-        this.height = value - this.y;
-    }
-    
-    isWithin(p: { x: number, y: number }) {
-        // returns true if the given point is within this rectangle
-        return p.x > this.x 
-            && p.y > this.y
-            && p.x < this.x + this.width
-            && p.y < this.y + this.height;
-    }
+	clone(): Rect {
+		return new Rect().copy(this);
+	}
 
-    overlaps(r: Rect): boolean {
-        return this.isWithin({ x: r.x, y: r.y })
-            && this.isWithin({ x: r.x + r.width, y : r.y + r.height });
-    }
-
-    copy(r: Rect): Rect {
-        this.x = r.x;
-        this.y = r.y;
-        this.width = r.width;
-        this.height = r.height;
-        return this;
-    }
-
-    clone(): Rect {
-        return new Rect().copy(this);
-    }
-
-    encapsulate(r: Rect): Rect {
-        this.x = Math.min(this.x, r.x);
-        this.y = Math.min(this.y, r.y);
-
-        const rRight = r.x + r.width;
-        if (rRight > this.x + this.width) {
-            this.width = rRight - this.x;
-        }
-
-        const rBottom = r.y + r.height;
-        if (rBottom > this.y + this.height) {
-            this.height = rBottom - this.y;
-        }
-
-        return this;
-    }
+	encapsulate(r: Rect): Rect {
+		this.topLeft.x = Math.min(this.topLeft.x, r.topLeft.x);
+		this.topLeft.y = Math.min(this.topLeft.y, r.topLeft.y);
+		this.bottomRight.x = Math.max(this.bottomRight.x, r.bottomRight.x);
+		this.bottomRight.y = Math.min(this.bottomRight.y, r.bottomRight.y);
+		return this;
+	}
 }
